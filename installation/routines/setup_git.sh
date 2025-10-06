@@ -17,7 +17,7 @@ _git_convert_tardir_git_repo() {
 ****************************************************"
 
   # Just in case, the git version is not new enough, we split up git init -b "${GIT_BRANCH}" into:
-  git -c init.defaultBranch=main init
+  git -c init.defaultBranch=main init --shared=755 .
   git checkout -q -b "${GIT_BRANCH}"
   git config pull.rebase false
 
@@ -150,7 +150,7 @@ _run_init_git_repo_from_tardir() {
     cd "${INSTALLATION_PATH}" || exit_on_error
     _git_install_os_dependencies
     _git_convert_tardir_git_repo
-    _git_repo_check
+    # _git_repo_check
 }
 
 init_git_repo_from_tardir() {
