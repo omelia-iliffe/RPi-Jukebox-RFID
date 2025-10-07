@@ -61,6 +61,7 @@ _jukebox_core_configure_pulseaudio() {
   print_lc "  Copy PulseAudio configuration"
   mkdir -p $(dirname "$JUKEBOX_PULSE_CONFIG")
   cp -f "${INSTALLATION_PATH}/resources/default-settings/pulseaudio.default.pa" "${JUKEBOX_PULSE_CONFIG}"
+  sudo chmod 644 "${JUKEBOX_PULSE_CONFIG}"
 }
 
 _jukebox_core_build_libzmq_with_drafts() {
@@ -119,13 +120,16 @@ _jukebox_core_build_and_install_pyzmq() {
 _jukebox_core_install_settings() {
   print_lc "  Register Jukebox settings"
   cp -f "${INSTALLATION_PATH}/resources/default-settings/jukebox.default.yaml" "${SETTINGS_PATH}/jukebox.yaml"
+  sudo chmod 644 "${SETTINGS_PATH}/jukebox.yaml"
   cp -f "${INSTALLATION_PATH}/resources/default-settings/logger.default.yaml" "${SETTINGS_PATH}/logger.yaml"
+  sudo chmod 644 "${SETTINGS_PATH}/logger.yaml"
 }
 
 _jukebox_core_register_as_service() {
   print_lc "  Register Jukebox Core user service"
 
   sudo cp -f "${INSTALLATION_PATH}/resources/default-services/jukebox-daemon.service" "${JUKEBOX_SERVICE_NAME}"
+  sudo chmod 644 "${JUKEBOX_SERVICE_NAME}"
   sudo sed -i "s|%%INSTALLATION_PATH%%|${INSTALLATION_PATH}|g" "${JUKEBOX_SERVICE_NAME}"
   sudo chmod 644 "${JUKEBOX_SERVICE_NAME}"
 
